@@ -1,3 +1,38 @@
+name: Comment
+on: pull_request
+jobs:
+    comment:
+        runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write
+            contents: read
+        steps:
+            - uses: actions/checkout@v4
+            - run: gh pr comment "${GITHUB_HEAD_REF}" --body "Hello,${GITHUB_ACTOR}"
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+name: GITHUB_OUTPUT
+on: push
+jobs:
+    share:
+        runs-on: ubuntu-latest
+        steps:
+            - id: source
+              run: echo "result=Hello"  >> "${GITHUB_OUTPUT}"
+            - env:
+                RESULT: ${{ steps.source.outputs.result }}
+              run: echo "${RESULT}"
+
+name: GITHUB_ENV
+on: push
+jobs:
+    share:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "result=Hello"  >> "${GITHUB_ENV}"
+            - run: echo "${RESULT}"
+
 # name: Naming
 # on: push
 # jobs:
@@ -8,14 +43,14 @@
 #             - name: Amazing Script
 #               run: echo "Hello"
 
-name: Run name
-run-name: Run by @${{ github.actor }}
-on: push
-jobs:
-    print:
-        runs-on: ubuntu-latest
-        steps:
-            - run: echo "Hello"
+# name: Run name
+# run-name: Run by @${{ github.actor }}
+# on: push
+# jobs:
+#     print:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - run: echo "Hello"
 
 # name: Contexts
 # on: push
