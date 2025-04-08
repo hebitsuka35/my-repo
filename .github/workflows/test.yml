@@ -1,9 +1,11 @@
-name: Annotation
+name: Job summaries
 on: push
 jobs:
     log:
         runs-on: ubuntu-latest
         steps:
-            - run: echo "::error::This is an error"
-            - run: echo "::warning::W"
-            - run: echo "::notice::N"
+            - run: |
+                echo "## Example Title :rocket:" >> "${GITHUB_STEP_SUMMARY}"
+                echo "- first line" >> "${GITHUB_STEP_SUMMARY}"
+                echo "- second line" >> "${GITHUB_STEP_SUMMARY}"
+               
