@@ -1,11 +1,9 @@
-name: Add mask
+name: Annotation
 on: push
 jobs:
     log:
         runs-on: ubuntu-latest
-        env:
-            PASSWORD: SuperSecretValue
         steps:
-            - run: |
-                echo "::add-mask::${PASSWORD}"
-                echo "${PASSWORD}"
+            - run: echo "::error::This is an error"
+            - run: echo "::warning::W"
+            - run: echo "::notice::N"
